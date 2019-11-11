@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   read_dir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/09 15:55:00 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/11 13:57:54 by wanton           ###   ########.fr       */
+/*   Created: 2019/11/11 13:12:40 by wanton            #+#    #+#             */
+/*   Updated: 2019/11/11 13:56:43 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int 	main(int ac, char **av)
+int 	open_dir(char *adr)
 {
-	t_file	*tmp;
-	t_file	*p;
-	int 	res;
+	DIR				*dir;
+	struct dirent	*res;
+	struct stat		buf;
 
-	if(!(list_add(&tmp, ac, av)))
-	{
-		free_list(&tmp);
-		ft_putstr("malloc error\n");
+	if(!(dir = opendir(adr)))
 		return (0);
-	}
-	sort_list(&tmp);
-	//print_list(tmp);
-	p = tmp;
-	while (p)
+	while ((res = readdir(dir)))
 	{
-		open_dir(p->name);
-		p = p->next;
+		if (res->d_name[0] != '.')
+		{
+			ft_putstr(res->d_name);
+			ft_putchar('\n');
+		}
 	}
-	return (0);
+	ft_putchar('\n');
+	ft_putstr("-----------------------------------------------");
+	ft_putchar('\n');
+	closedir(dir);
+	return (1);
 }

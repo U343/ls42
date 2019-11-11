@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:01:24 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/11 12:29:27 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/11 12:54:23 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,11 @@ void	free_list(t_file **tmp);
 void	sort_list(t_file **tmp);
 
 void	print_list(t_file *tmp); // не забыть удалить
+
+/*
+**Functions for open and read directory
+*/
+
+int		open_dir(char *adr);
 
 #endif
