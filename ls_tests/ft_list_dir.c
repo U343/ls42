@@ -1,20 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_list_dir.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/04 12:58:14 by wanton            #+#    #+#             */
+/*   Updated: 2019/11/09 15:55:47 by wanton           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 
-#include "ft_ls.h"
-
-int 	main(int ac, char **av)
+/*int 	main(int ac, char **av)
 {
 	DIR				*dir;
 	struct dirent	*res;
 	struct stat		buf;
 	int 			p;
-	char 			*time;
 
-	if (ac > 2)
-	{
-		ft_putstr("error, to many files\n");
-		return (0);
-	}
+
 	if (ac == 1)
 	{
 		if (!(dir = opendir(".")))
@@ -27,7 +31,7 @@ int 	main(int ac, char **av)
 	{
 		if (!(dir = opendir(av[1])))
 		{
-			ft_putstr("error open directory ");
+			ft_putstr("error open directory\n");
 			ft_putstr(av[1]);
 			ft_putchar('\n');
 			return (0);
@@ -40,12 +44,17 @@ int 	main(int ac, char **av)
 			ft_putstr("error stat\n");
 			return (0);
 		}
-		time = asctime(localtime(&buf.st_ctime));
-		ft_putstr(res->d_name);
-		ft_putstr("  ");
-		ft_putstr(time);
-		//ft_putchar('\n');
+		if (res->d_name[0] != '.')
+		{
+			ft_putstr(res->d_name);
+			ft_putstr("\t\t");
+			ft_putnbr(S_ISDIR(buf.st_mode));
+			*//*ft_putstr(time);*//*
+			ft_putchar('\n');
+		}
 	}
+	ft_putstr("-----------\n");
+	ft_putstr(getenv("COLUMNS"));
 	closedir(dir);
 	return (0);
-}
+}*/
