@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:16:26 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/11 12:29:27 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/21 14:04:16 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,42 @@
 **Нужет для того чтобы менять местами name элементов списка
 */
 
-static void		ft_swap(char **s1, char **s2)
+static void			ft_swap(t_file *p1, t_file *p2)
 {
-	char *buf;
-
-	buf = *s1;
-	*s1 = *s2;
-	*s2 = buf;
+	p1->next = p2->next;
+	p2->next = p1;
 }
 
 /*
 **Сортирует список t_file по возрастанию
+**Меняет местами именно элементы списка
 */
 
-void			sort_list(t_file **tmp)
+t_file				*sort_list(t_file *lst)
 {
-	t_file *p;
-	int		flag;
+	t_file	*p;
+	t_file	*u3;
+	int		check;
 
-	flag = 0;
-	while (flag == 0)
+	check = 0;
+	while (check == 0)
 	{
-		p = *tmp;
-		flag = 1;
-		while (p && p->next)
+		p = lst;
+		check = 1;
+		u3 = 0;
+		while (p != NULL && p->next != NULL)
 		{
 			if (ft_strcmp(p->name, p->next->name) > 0)
 			{
-				ft_swap(&p->name, &p->next->name);
-				flag = 0;
+				check = 0;
+				lst = (u3 == 0 ? p->next : lst);
+				if (u3 != 0)
+					u3->next = p->next;
+				ft_swap(p, p->next);
 			}
+			u3 = p;
 			p = p->next;
 		}
 	}
+	return (lst);
 }
