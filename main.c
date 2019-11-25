@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:55:00 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/21 12:59:38 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/25 12:15:52 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		main(int ac, char **av)
 	t_file		*head;
 	__uint16_t	flag;
 	int 		n;
+	int			len;
 
 	flag = 0;
 	n = flag_pars(&flag, ac, av); // Получили индекс аргумента с которого начинаются файлы и папки
@@ -77,10 +78,11 @@ int		main(int ac, char **av)
 		free_list(&tmp); // если ошибка, очищаем
 		return (0);
 	}
-	if ((flag & LS_MD) != 0)
-		tmp = sort_list(tmp);
-	//open_dir(".", &head);
-	print_list(tmp);
+	if ((flag & LS_MD) != 0) // проверяем кол-во arg если больше 1 - сорт
+		sort_list(&tmp);
+	n = open_dir(tmp->name, &head, flag, &len);
+	sort_list(&head);
+	print_list(head, flag, (n + 4), len);
 	free_list(&head);
 	free_list(&tmp);
 	return (0);

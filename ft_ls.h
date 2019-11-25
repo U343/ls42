@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:01:24 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/21 12:51:37 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/25 12:57:59 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <errno.h>
+# include <sys/ioctl.h>
 
 # include "libft/libft.h"
 
@@ -47,6 +48,7 @@ typedef struct		s_file
 {
 	char			*name;
 	char			type;
+	int 			len_name;
 	int				error;
 	int 			is_dir;
 	int 			is_link;
@@ -63,16 +65,17 @@ typedef struct		s_file
 int					list_add(t_file **tmp, int ac, char **av, int n);
 void				free_list(t_file **tmp);
 void				ft_lstadd_file(t_file **alst, t_file *new);
+void				sort_list(t_file **lst);
 t_file				*new_list_elem_file(char *s);
 t_file				*new_list_elem_file2(char *s, struct stat buf);
-t_file				*sort_list(t_file *lst);
+t_file				*ft_take_elem(t_file *head, int n);
 
-void				print_list(t_file *tmp); // не забыть удалить
+void				print_list(t_file *tmp, int flag, int maxlen, int len);
 
 /*
 **Functions for open and read directory
 */
 
-int					open_dir(char *adr, t_file **head);
+int					open_dir(char *adr, t_file **head, int flag, int *len);
 
 #endif

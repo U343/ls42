@@ -27,7 +27,7 @@ static void			ft_swap(t_file *p1, t_file *p2)
 **Меняет местами именно элементы списка
 */
 
-t_file				*sort_list(t_file *lst)
+void				sort_list(t_file **lst)
 {
 	t_file	*p;
 	t_file	*u3;
@@ -36,7 +36,7 @@ t_file				*sort_list(t_file *lst)
 	check = 0;
 	while (check == 0)
 	{
-		p = lst;
+		p = *lst;
 		check = 1;
 		u3 = 0;
 		while (p != NULL && p->next != NULL)
@@ -44,7 +44,7 @@ t_file				*sort_list(t_file *lst)
 			if (ft_strcmp(p->name, p->next->name) > 0)
 			{
 				check = 0;
-				lst = (u3 == 0 ? p->next : lst);
+				*lst = (u3 == 0 ? p->next : *lst);
 				if (u3 != 0)
 					u3->next = p->next;
 				ft_swap(p, p->next);
@@ -53,5 +53,4 @@ t_file				*sort_list(t_file *lst)
 			p = p->next;
 		}
 	}
-	return (lst);
 }
