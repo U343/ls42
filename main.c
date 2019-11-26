@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 15:55:00 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/25 12:15:52 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/26 15:11:30 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int		check_flag(__uint16_t *flag, char elem)
 	}
 	return (1);
 }
+
+/*
+**Пробегает по аргументам до тех пор пока идут флаги или пока они не кончатся
+**Нужна для того чтобы пропарсить флаги
+*/
 
 int		flag_pars(__uint16_t *flag, int ac, char **av)
 {
@@ -79,10 +84,19 @@ int		main(int ac, char **av)
 		return (0);
 	}
 	if ((flag & LS_MD) != 0) // проверяем кол-во arg если больше 1 - сорт
-		sort_list(&tmp);
+		sort_list(&tmp, flag);
 	n = open_dir(tmp->name, &head, flag, &len);
-	sort_list(&head);
-	print_list(head, flag, (n + 4), len);
+	if (!(more_info(head, flag)))
+	{
+		ft_putstr("more info error\n");
+		free_list(&head);
+		free_list(&tmp);
+		return (0);
+	}
+	sort_list(&head, flag);
+	move_dir(&head);
+	//print_list(head, flag, (n + 4), len);
+	test_print(head);
 	free_list(&head);
 	free_list(&tmp);
 	return (0);

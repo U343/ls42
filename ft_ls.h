@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:01:24 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/25 12:57:59 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/26 14:53:48 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,21 @@ typedef struct		s_file
 
 int					list_add(t_file **tmp, int ac, char **av, int n);
 void				free_list(t_file **tmp);
+void				move_dir(t_file	**lst);
 void				ft_lstadd_file(t_file **alst, t_file *new);
-void				sort_list(t_file **lst);
+void				sort_list(t_file **lst, __uint16_t flag);
+void				list_elem_info(t_file *tmp, struct stat buf);
+void				print_list(t_file *tmp, __uint16_t flag, int maxlen, int l);
 t_file				*new_list_elem_file(char *s);
-t_file				*new_list_elem_file2(char *s, struct stat buf);
 t_file				*ft_take_elem(t_file *head, int n);
 
-void				print_list(t_file *tmp, int flag, int maxlen, int len);
+void				test_print(t_file	*tmp); // не забыть удалить
 
 /*
 **Functions for open and read directory
 */
 
-int					open_dir(char *adr, t_file **head, int flag, int *len);
+int					open_dir(char *adr, t_file **head, __uint16_t flag, int *l);
+int					more_info(t_file *tmp, __uint16_t flag);
 
 #endif
