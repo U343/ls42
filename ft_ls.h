@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:01:24 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/26 14:53:48 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/29 11:30:41 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ typedef struct		s_file
 */
 
 int					list_add(t_file **tmp, int ac, char **av, int n);
+int					dcount_list(t_file *head);
+int					main_print(t_file **head, t_file **tmp, int flag);
 void				free_list(t_file **tmp);
 void				move_dir(t_file	**lst);
 void				ft_lstadd_file(t_file **alst, t_file *new);

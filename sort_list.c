@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 12:16:26 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/26 15:27:05 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/29 11:44:33 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,40 @@ void				sort_list(t_file **lst, __uint16_t flag)
 	}
 }
 
-void				move_dir(t_file	**lst)
+/*
+**Передвигает элемнт списка в конец этого же списка
+*/
+
+void				move_elem(t_file *lst, t_file *u3, t_file *p)
+{
+	t_file	*tmp;
+
+	tmp = p;
+	if (u3 == NULL)
+		lst = p->next;
+	else
+		u3->next = p->next;
+	while (p->next)
+		p = p->next;
+	p->next = tmp;
+	tmp->next = NULL;
+}
+
+/*
+**Передвигает элементы списка в конец этого же списка
+**Список также остается отсортированным по алфавиту
+*/
+
+void				move_dir(t_file **lst)
 {
 	t_file	*p;
 	t_file	*u3;
-	t_file	*tmp;
-	int  	i;
+	int		i;
 	int		len;
 
 	i = 0;
-	len = 0;
-	p = *lst;
-	while (p)
-	{
-		if (p->is_dir == 1)
-			len++;
-		p = p->next;
-	}
-	while (i++ < len)
+	len = dcount_list(*lst); // определяем кол-во дирректорий
+	while (i++ < len) // передвигаем дирректории в конец списка
 	{
 		u3 = NULL;
 		p = *lst;
@@ -80,20 +96,11 @@ void				move_dir(t_file	**lst)
 		{
 			if (p->is_dir == 1)
 			{
-				tmp = p;
-				if (u3 == NULL)
-					*lst = p->next;
-				while (p->next)
-					p = p->next;
-				p->next = tmp;
-				break;
+				move_elem(*lst, u3, p);
+				break ;
 			}
 			u3 = p;
 			p = p->next;
 		}
 	}
 }
-
-
-
-

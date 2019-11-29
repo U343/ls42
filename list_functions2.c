@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 13:15:36 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/26 12:32:56 by wanton           ###   ########.fr       */
+/*   Updated: 2019/11/29 11:52:48 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,24 @@ void	free_list(t_file **tmp)
 		free(d);
 	}
 	free(*tmp);
+}
+
+/*
+**Подсчитывает кол-во дирректорий в списке t_file
+*/
+
+int		dcount_list(t_file *head)
+{
+	t_file	*p;
+	int		count;
+
+	p = head;
+	count = 0;
+	while (p)
+	{
+		if (p->is_dir == 1)
+			count++;
+		p = p->next;
+	}
+	return (count);
 }
