@@ -77,13 +77,13 @@ int		main(int ac, char **av)
 	n = flag_pars(&flag, ac, av); // Получили индекс аргумента с которого начинаются файлы и папки
 	if (ac - n != 0) // проверяем есть ли еще аргументы кроме флага
 		flag = flag | (1 << 5); // ставим флаг MD
-	if (!(list_add(&tmp, ac, av, n))) // формируем массив аргументов
+	/*if (!(list_add(&tmp, ac, av, n))) // формируем массив аргументов
 	{
 		free_list(&tmp); // если ошибка, очищаем
 		return (0);
 	}
 	if ((flag & LS_MD) != 0) // проверяем кол-во arg если больше 1 - сорт
-		sort_list(&tmp, flag);
+		sort_list(&tmp, flag);*/
 	if (!(main_print(&head, &tmp, flag)))
 		return (0);
 	free_list(&head);

@@ -41,17 +41,21 @@ void	free_list(t_file **tmp)
 	t_file	*p;
 	t_file	*d;
 
-	p = *tmp;
-	*tmp = NULL;
-	while (p)
+	if (tmp && *tmp)
 	{
-		d = p;
-		p = p->next;
-		free(d->name);
-		d->next = NULL;
-		free(d);
+		p = *tmp;
+		*tmp = NULL;
+		while (p)
+		{
+			d = p;
+			p = p->next;
+			free(d->name);
+			d->next = NULL;
+			free(d);
+		}
+		free(*tmp);
 	}
-	free(*tmp);
+	tmp = NULL;
 }
 
 /*

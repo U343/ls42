@@ -6,7 +6,7 @@
 /*   By: wanton <wanton@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 11:50:21 by wanton            #+#    #+#             */
-/*   Updated: 2019/11/29 12:27:46 by wanton           ###   ########.fr       */
+/*   Updated: 2019/12/05 13:54:36 by wanton           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,34 @@ void		print_list(t_file *tmp, __uint16_t flag, int maxlen, int l)
 	}
 }
 
-void		recursive_print(t_file	*tmp, int flag)
+static void		rec_dir(const char *dir_name, __uint16_t flag)
 {
-	
+	int 			n;
+	int 			len;
+	char			path[PATH_MAX];
+	t_file			*head;
+	t_file			*p;
+	const char		*d_name;
+
+	n = open_dir(dir_name, &head, flag, &len);
+	sort_list(&head, flag);
+	print_list(head, flag, (n + 2), len);
+	p = head;
+	while (p)
+	{
+		if (p->is_dir)
+		{
+			get_full_path(path, dir_name, p->name);
+			ft_putchar('\n');
+			ft_putstr(path);
+			ft_putstr(":\n");
+			rec_dir(path, flag);
+			//free_list(&head);
+		}
+		p = p->next;
+
+	}
+	free_list(&head);
 }
 
 void		test_print(t_file	*tmp) // тестовый вывод списка (потом удалить)
@@ -72,20 +97,21 @@ void		test_print(t_file	*tmp) // тестовый вывод списка (по�
 
 int			main_print(t_file **head, t_file **tmp, int flag)
 {
-	int n;
-	int len;
+	int		n;
+	int		len;
 
-	n = open_dir((*tmp)->name, head, flag, &len);
-	if (!(more_info(*head, flag)))
+	//n = open_dir((*tmp)->name, head, flag, &len);
+	/*if (!(more_info(*head, flag)))
 	{
 		ft_putstr("more info error\n");
 		free_list(head);
 		free_list(tmp);
 		return (0);
-	}
-	sort_list(head, flag);
+	}*/
+	//sort_list(head, flag);
 	//move_dir(head);
-	print_list(*head, flag, (n+2), len);
+	//print_list(*head, flag, (n+2), len);
+	rec_dir(".", flag);
 	//test_print(*head);
 	return (1);
 }
